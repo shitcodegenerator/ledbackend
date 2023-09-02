@@ -30,7 +30,7 @@ app.post("/upload", upload.any(), async (req, res) => {
   try {
 app.use(cors());
     const uploadFile = async (fileObject) => {
-        try {
+
           const auth = new google.auth.GoogleAuth({
             credentials: {
               type: "service_account",
@@ -71,15 +71,13 @@ app.use(cors());
       
           console.log(`SUCCESSFULLY UPLOADED: ${data.name} ${data.id}`);
           console.log(data.thumbnailLink);
-        } catch (err) {
-          console.log(err?.message);
-        }
+          return data
       };
     // console.log(req.files)
     const { body, files } = req;
     const targetFile = files[0];
-    uploadFile(targetFile);
-    res.status(200).send("SUBMITTED");
+    const data = await uploadFile(targetFile);
+    res.status(200).send("SUBMITTED" + JSON.stringify(data));
   } catch (err) {
     res.send(err?.message);
   }
