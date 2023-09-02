@@ -1,6 +1,7 @@
 // Add Express
 const express = require("express");
 // const uploadRouter = require('./router.js')
+var cors = require('cors');
 
 const multer = require("multer");
 const { google } = require("googleapis");
@@ -12,6 +13,7 @@ const upload = multer();
 // Initialize Express
 const dotenv = require("dotenv").config();
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use(uploadRouter)
@@ -26,6 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.post("/upload", upload.any(), async (req, res) => {
   // console.log(req.body)
   try {
+app.use(cors());
     const uploadFile = async (fileObject) => {
         try {
           const auth = new google.auth.GoogleAuth({
@@ -33,7 +36,7 @@ app.post("/upload", upload.any(), async (req, res) => {
               type: "service_account",
               project_id: "zakboxing",
               private_key_id: "19bcf1488ba17a5dd639193a57a45f6be6a34738",
-              private_key: process.env.DRIVE_KEY,
+              private_key: process.env.DRIVE_KEY.replace(/\\n/gm, '\n'),
               client_email: "ledbackend@zakboxing.iam.gserviceaccount.com",
               client_id: "102187801513047450786",
               auth_uri: "https://accounts.google.com/o/oauth2/auth",
