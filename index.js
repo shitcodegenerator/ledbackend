@@ -6,7 +6,7 @@ const multer = require("multer");
 const { google } = require("googleapis");
 const stream = require("stream");
 
-const uploadRouter = express.Router();
+// const uploadRouter = express.Router();
 const upload = multer();
 
 const auth = new google.auth.GoogleAuth({
@@ -50,7 +50,23 @@ const auth = new google.auth.GoogleAuth({
     console.log(data.thumbnailLink);
   };
   
-  uploadRouter.post("/upload", upload.any(), async (req, res) => {
+
+  
+
+
+// Initialize Express
+const dotenv = require("dotenv").config()
+const app = express();
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+// app.use(uploadRouter)
+
+// Create GET request
+// app.get("/", (req, res) => {
+//   res.send("Express on Vercel");
+// });
+
+app.post("/upload", upload.any(), async (req, res) => {
     // console.log(req.body)
     try {
       // console.log(req.files)
@@ -62,20 +78,6 @@ const auth = new google.auth.GoogleAuth({
       res.send(err.message);
     }
   });
-  
-
-
-// Initialize Express
-const dotenv = require("dotenv").config()
-const app = express();
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
-app.use(uploadRouter)
-
-// Create GET request
-// app.get("/", (req, res) => {
-//   res.send("Express on Vercel");
-// });
 
 app.get("/", (req, res) => {
     // res.sendFile(__dirname + '/index.html')
