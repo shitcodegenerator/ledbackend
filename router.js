@@ -1,6 +1,5 @@
 const express = require("express");
 const multer = require("multer");
-// const path = require("path");
 const { google } = require("googleapis");
 const stream = require("stream");
 
@@ -9,10 +8,7 @@ const upload = multer();
 
 // const KEYFILEPATH = path.join(__dirname, "credentials.json");
 
-const SCOPES = ["https://www.googleapis.com/auth/drive"];
-
 const auth = new google.auth.GoogleAuth({
-  //   keyFile: KEYFILEPATH,
   credentials: {
     "type": "service_account",
     "project_id": "zakboxing",
@@ -26,7 +22,7 @@ const auth = new google.auth.GoogleAuth({
     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ledbackend%40zakboxing.iam.gserviceaccount.com",
     "universe_domain": "googleapis.com"
   },
-  scopes: SCOPES,
+  scopes: ["https://www.googleapis.com/auth/drive"],
 });
 
 const uploadFile = async (fileObject) => {
