@@ -15,7 +15,7 @@ const app = express();
 
 app.get("/", (req, res) => {
     // res.sendFile(__dirname + '/index.html')
-      res.send("Express on Vercel");
+      res.send("Express on Vercel test");
 });
 
 // Initialize server
