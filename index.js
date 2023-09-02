@@ -5,9 +5,9 @@ const express = require("express");
 // Initialize Express
 const dotenv = require("dotenv").config()
 const app = express();
-// app.use(express.json())
-// app.use(express.urlencoded({extended: false}))
-// app.use(uploadRouter)
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+app.use(uploadRouter)
 
 // Create GET request
 // app.get("/", (req, res) => {
@@ -16,8 +16,7 @@ const app = express();
 
 app.get("/", (req, res) => {
     // res.sendFile(__dirname + '/index.html')
-    console.log(process.env.DRIVE_KEY)
-      res.send("Express on Vercel test");
+      res.send("Express on Vercel test AGAIN");
 });
 
 // Initialize server
