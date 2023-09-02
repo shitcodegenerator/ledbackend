@@ -1,6 +1,6 @@
 // Add Express
 const express = require("express");
-// const uploadRouter = require('./router.js')
+const uploadRouter = require('./router.js')
 
 // Initialize Express
 const dotenv = require("dotenv").config()
