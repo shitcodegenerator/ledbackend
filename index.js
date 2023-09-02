@@ -4,9 +4,9 @@ const uploadRouter = require('./router.js')
 
 // Initialize Express
 const app = express();
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
-app.use(uploadRouter)
+// app.use(express.json())
+// app.use(express.urlencoded({extended: false}))
+// app.use(uploadRouter)
 
 // Create GET request
 // app.get("/", (req, res) => {

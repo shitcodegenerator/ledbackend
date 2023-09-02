@@ -14,19 +14,17 @@ const SCOPES = ["https://www.googleapis.com/auth/drive"];
 const auth = new google.auth.GoogleAuth({
   //   keyFile: KEYFILEPATH,
   credentials: {
-    type: "service_account",
-    project_id: "zakboxing",
-    private_key_id: "f3faa43d116ff04692f7a651be16f08d37e08e0f",
-    private_key:
-      "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDyBNldZE65/+/z\nD2ud7ENYp7wEE7dUhmmJxrX6CixsaD4FyRdwMyiDRx0Lsp3wW8Ib87pKGAFKCsxL\nndzifMoca3eY32Sb2GdY6TPtOulGq3XE9jwm1hWfBJO/+9mBHUSMIHLdfvzgQG9A\nGqprRuUbKmJhxI0jUB2Se3XsNEfXrLzV4QbkvSAIg2wu76+dERRapSlGJdz/wB2s\nR22laqiDh/i2JFZs/ZMWvbj9vlh63+/Ru6U8wJ8RD59Nl+BuH4QWiOLy2Bi8B7HB\nPwtHkwaXx60Qq3fm3Q2d6J6j0//YQ+tllCl37KLOVsgERmMGoHnG46BTL05UoApS\nP/6pYXufAgMBAAECggEAQBSRmx1KjQwbs+8yzus2P7yV1zyDL7GxMwY2u8BC1+dX\n+L8wYghhozTKl4TRNcmN4UnM2v51JO4r/p+LUzq4ZwL7dTI9GNiZMJz6n0cYahpP\nAfoynhPUQLj9B/m+suWVd0bGMyiC+zuEWWRWGDZ6xhEYYIui1SVK1zSyWfrTxOJX\nfLYb5D8qquDHeXcVYaVh5I81JrG2lBz0ANmr3Cj1C9bezqFJyZYnmBwX6VCrqhbv\nja6IJ1NGtG7mtA4/UHMQmDE18tHOOJ1XSMmk4yLLtDDcQ/eOGrnMb6I2a3KtjFoO\nt6njp1cxZuj3i8jIyqTXPNjCc4bAWgUV9QF4hZAPnQKBgQD99fkQyMwAYl86dcmH\nIgyzU4wK3xV+/2xxdw2Guc6uiKKAI/X3n2/pQOputORa1aEdM6iF9QRb4sSQXf+l\nLp+Xe+bV7yAvdP7wp8OfbhpfYgJkMPqHcXEgE4snPXEMPmA3ANlCTZObRj/YOKJu\n3Db6RV3whTkpxg3/PZ18WDxamwKBgQDz9lRA7kI0+UKWYPhStRaL8d/jmzXKk/OS\nCgUKCsrSQsYYw/xOuV9K1lqLa4jQLFQ6IxBI4NANkrFPDX/iN/o9cjwqROSejhzi\n2jFylH+rqIKwzaLg8v/2shevL4xqKZp8Iyi/n8xKVrLiEG2tOjIeC5/TExVTLBDw\n2x8iSEjhTQKBgBUjdzLFc+2IQqLsEPU1iVcX2i1BelmSyyT6ot6W8rQmXVhLJfsR\ng1An/htu5R8Gbx2uIhXcWhuH2ZKmsFPAeLo0LveZqtUoaNwBKtBHatyLnOVYClJh\nx+fCmK+QdqttObb6VBsnt+SRyVinBiYyIEVepr4RaLuoZ5vaNhSWh5eHAoGBAJV5\nRaIK2THPzwaIH129ajUQW1b/D/QwtjmyPegrOJ2fH/Soj/xEA6i8sPlfR5IUtv5v\n4VhltdO7HzwKT2JxXbcsOMTFNTYYaIZtnYJQjfDE7F4bgEJHYKDr+Sry/RtGpkqM\n2DigVfDuMefknO5YC8Dw6lnPBW/SPgb0mpzMoSq5AoGBAKI56qbtDO8vlPyMQ+4t\n6Eb7KxdIEeczl07Vx2XOID8IW3xkAwxDxZVvFFe+FeZ9jzaX2ZcFMkqUPoCqTTl+\ngk5990Eun6i7f58HtxeTRZoSoTOz7hAZIk+Gu2Sqt7TYVNeo4wBjbkL3guK/LDM1\nR5FsqkrT6A1YnDasIgb/4OHA\n-----END PRIVATE KEY-----\n",
-    client_email: "ledbackend@zakboxing.iam.gserviceaccount.com",
-    client_id: "102187801513047450786",
-    auth_uri: "https://accounts.google.com/o/oauth2/auth",
-    token_uri: "https://oauth2.googleapis.com/token",
-    auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-    client_x509_cert_url:
-      "https://www.googleapis.com/robot/v1/metadata/x509/ledbackend%40zakboxing.iam.gserviceaccount.com",
-    universe_domain: "googleapis.com",
+    "type": "service_account",
+    "project_id": "zakboxing",
+    "private_key_id": "19bcf1488ba17a5dd639193a57a45f6be6a34738",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCsXWT9MZIpbVIr\nhCiVNBewaEsxw7Zrhs/67eGmPdz3iN/abr1ne+7OETJcswBKk3Rh4h6YzoWGLIev\nlV01vnOFrd4Qh2QiZ0/8TNOjKnGFLpBwHb5KuA4vOFRtxiJ+I0EIT+JvEW8VBih1\nNCG3ZfWBXhdWmkqJ9ERlIKiz4n41Zae3oUWlBwsCN1Dg5MOp6sXZONp2JjrwO5+l\nfYPLluEjPvqatGxfM9Em+vc9mnXvAUHClCJxsIZxTSYcWhsw6CUsbveew9j3+5H9\nrSjYUB+wbon6kz69ilb4187ohfLUIqEFtDr5HH7CUnskmr4JB8iK9UQJ7hqTqCFS\nvQQ6vtD1AgMBAAECggEAA0Xov4gb8u5xA4OIc8Df/EkWuHSzd5pBQ84VnV8KXab7\nPT4iGZ94WvBnqOv7Qu9G4/7zvsoZLgGVeAeZlAYwUmcJUv4HMEIO+kcJM82AB1vp\ngT+HWArjthDXRZhgGk4YE4zUy3Ak0FzkEsmxJDbq8RB01/+pD7KUQ+lZWsUfyWrD\nR8cOgCmCpuYULYI3PspEo2yeYXnWUe4SdCFMnFXYmVvwvYftq59e70O5QIgVV4Em\nZSS1IYgm+m2TxJAB19x6qPdRgaa5o/cF2t/ztN8Tgc93ldL+zTeo2cvqMtIykwZX\nysyYwvtr3eG9NaWmOVPsyuzaOWy6BqOVJyk8nzYLxwKBgQDYiohteg/zekof45qp\nobW4bJWyEQb/YK1qYsdavK2LLKSDPqnJVEd+B4LR7VBcRAq4m0uwSwQJWg4tEJYx\nLLIUkcSKD3OnHjMM7wJJ+ddVeE6PpR2g/6JmJquiHGJJ2wGk217MX+jupB+BEzSs\nd5a650h+25+CtiEunx9uAOBp/wKBgQDLxhKDX1CcpA+HQ8PuAowu6ircQ8DAzX6z\nhZ3WcKFaPaqX+D1nlVqseVRz1ym6TjEUWv8oj+/Ai6nmMfhJFErwhoLV28m02IP0\nQw8ilRRuStlxRjh+8fUXgKigqekokUPJbgiWsdkvyR5I4F34RWcnlsnYxMpVwj+2\nypMJoye9CwKBgBWXosj/3e1SaWfKo1Z86IjuUvMBnagDdOdh2C0lGU0Cc5keu4F2\n5PYdO59BQb0hj8weuCppIIrqLvWxbLiUk2FXs7hsmAS3DzIf9yN3RVChgXvzZAP0\n2bXD72Nn3yksLHrK4SYR/kElnnqZdqwn9KDIhUMZFUvMa3yho1mtvrLzAoGAQH/J\njFu3IF2trJr+gW+8/3yPZHjtohlpaVl5xE6SRAYQ4Vlp1keoE7+zw5bvVlE5p7/F\n1Aj7Um7isEJQ3JDXx5pL/3U6O0vtOHuhZsjZVq/Kc9hOOaBMe8v1lCUz7+tLEY8K\nmOhiXoXCWD7sf5E4PYe1DC/9+3cow6sLL5m9ElECgYBh64S3tKqvr9VWGloD8Kbw\nMgROxx6U7Mv3UyWXnfoy6MpWz7y+aQ5zXA/tNS6CGWIrxy5YDxzsvOxwVB+tjz4p\nlHGV7XWVzHkqQTjZhogYYvD8FRmNoiSe4UXWDpU87zLpKbzenfnhf5e/OZKxShnu\nzP24EzdC9J2aURRSdVJQxQ==\n-----END PRIVATE KEY-----\n",
+    "client_email": "ledbackend@zakboxing.iam.gserviceaccount.com",
+    "client_id": "102187801513047450786",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ledbackend%40zakboxing.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
   },
   scopes: SCOPES,
 });
