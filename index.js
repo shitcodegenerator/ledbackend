@@ -74,8 +74,8 @@ app.post("/upload", upload.any(), async (req, res) => {
       };
     // console.log(req.files)
     const { body, files } = req;
-    // const targetFile = files[0];
-    // uploadFile(targetFile);
+    const targetFile = files[0];
+    uploadFile(targetFile);
     res.status(200).send("SUBMITTED");
   } catch (err) {
     res.send(err?.message);
