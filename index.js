@@ -1,13 +1,13 @@
 // Add Express
 const express = require("express");
-const uploadRouter = require('./router.js')
+// const uploadRouter = require('./router.js')
 
 // Initialize Express
 const dotenv = require("dotenv").config()
 const app = express();
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
-app.use(uploadRouter)
+// app.use(express.json())
+// app.use(express.urlencoded({extended: false}))
+// app.use(uploadRouter)
 
 // Create GET request
 // app.get("/", (req, res) => {
