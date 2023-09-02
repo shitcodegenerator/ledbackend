@@ -9,6 +9,24 @@ const stream = require("stream");
 // const uploadRouter = express.Router();
 const upload = multer();
 
+
+  
+
+  
+
+
+// Initialize Express
+const dotenv = require("dotenv").config()
+const app = express();
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+// app.use(uploadRouter)
+
+// Create GET request
+// app.get("/", (req, res) => {
+//   res.send("Express on Vercel");
+// });
+
 const auth = new google.auth.GoogleAuth({
     credentials: {
       "type": "service_account",
@@ -49,22 +67,6 @@ const auth = new google.auth.GoogleAuth({
     console.log(`SUCCESSFULLY UPLOADED: ${data.name} ${data.id}`);
     console.log(data.thumbnailLink);
   };
-  
-
-  
-
-
-// Initialize Express
-const dotenv = require("dotenv").config()
-const app = express();
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
-// app.use(uploadRouter)
-
-// Create GET request
-// app.get("/", (req, res) => {
-//   res.send("Express on Vercel");
-// });
 
 app.post("/upload", upload.any(), async (req, res) => {
     // console.log(req.body)
@@ -81,7 +83,7 @@ app.post("/upload", upload.any(), async (req, res) => {
 
 app.get("/", (req, res) => {
     // res.sendFile(__dirname + '/index.html')
-      res.send("Express on Vercel test AGAIN");
+      res.send("Express on Vercel test AGAIN" + process.env.DRIVE_KEY);
 });
 
 // Initialize server
