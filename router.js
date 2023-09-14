@@ -76,7 +76,7 @@ uploadRouter.post("/upload", upload.any(), async (req, res) => {
     console.log(req.body);
     const targetFile = files[0];
     const data = await uploadFile(targetFile);
-    res.status(200).send("SUBMITTED" + JSON.stringify(data));
+    res.status(201).json({ message: "Created", data: JSON.stringify(data) });
   } catch (err) {
     res.status(400).send(`${err?.message}, ${JSON.stringify(req)}`);
   }
