@@ -41,7 +41,7 @@ const createMember = asyncHandler(async (req, res) => {
     receiver_address,
   });
   await member.save();
-  res.status(201).json({ message: "Created", data: member });
+  res.status(200).json({ message: "Created", data: member });
 });
 const getContact = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "OK" });
