@@ -45,7 +45,7 @@ const createMember = asyncHandler(async (req, res) => {
 const getPhoto = asyncHandler(async (req, res) => {
   const { page = 1, size = 1 } = req.query;
   const data = await Member.find(
-    {is_verified: false}
+    {is_verified: true}
   )
     .select(["doctor_name", "photo"])
     .skip((page - 1) * size)
@@ -63,27 +63,27 @@ const getPhoto = asyncHandler(async (req, res) => {
 });
 
 /** 後台 */
-// const getAttendeeData = asyncHandler(async (req, res) => {
-//   const { page = 1, size = 10, receiver_mobile = '' } = req.query;
-//   const data = await Member.find(
-//     {
-//       ...(receiver_mobile && {receiver_mobile})
-//     }
-//   )
-//     .select(["doctor_name", "photo", 'receiver_mobile', 'receiver_name', 'is_verified', 'created_at', 'receiver_address'])
-//     .skip((page - 1) * size)
-//     .limit(size)
-//     .exec();
+const getAttendeeData = asyncHandler(async (req, res) => {
+  const { page = 1, size = 10, receiver_mobile = '' } = req.query;
+  const data = await Member.find(
+    {
+      ...(receiver_mobile && {receiver_mobile})
+    }
+  )
+    .select(["doctor_name", "photo", 'receiver_mobile', 'receiver_name', 'is_verified', 'created_at', 'receiver_address'])
+    .skip((page - 1) * size)
+    .limit(size)
+    .exec();
 
-//   const total = await Member.countDocuments();
-//   res.status(200).json({
-//     message: "OK",
-//     data: {
-//       data,
-//       total: Math.ceil(total / size),
-//     },
-//   });
-// });
+  const total = await Member.countDocuments();
+  res.status(200).json({
+    message: "OK",
+    data: {
+      data,
+      total: Math.ceil(total / size),
+    },
+  });
+});
 
 // const verifyAttendee = asyncHandler(async (req, res) => {
 //   const user = await Member.findOne(
@@ -102,7 +102,7 @@ const getPhoto = asyncHandler(async (req, res) => {
 
 module.exports = {
   getPhoto,
-  // getAttendeeData,
+  getAttendeeData,
   createMember,
   // verifyAttendee
 };
