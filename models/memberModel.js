@@ -17,6 +17,7 @@ const memberSchema = mongoose.model('Member',
     type: String,
     maxlength: 50,
     required: true,
+    unique: false,
   },
   receiver_name: {
     type: String,
@@ -61,35 +62,7 @@ const memberSchema = mongoose.model('Member',
     type: Number,
     default: 0
   },
-  // orders: [
-  //   {
-  //       type: Schema.Types.ObjectId
-  //   }
-  // ]
 }))
 
-
-const User = mongoose.model('User', new mongoose.Schema({
-  name: {
-      type: String,
-      required: true,
-      minlength: 5,
-      maxlength: 50
-  },
-  email: {
-      type: String,
-      required: true,
-      minlength: 5,
-      maxlength: 255,
-      unique: true
-  },
-  password: {
-      type: String,
-      required: true,
-      minlength: 5,
-      maxlength: 1024
-  }
-}));
-// module.exports = mongoose.model("Member", memberSchema)
 
 exports.Member = memberSchema;
