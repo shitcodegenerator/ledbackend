@@ -27,7 +27,7 @@ app.use(uploadRouter)
 
 app.post("/enroll",  createMember);
 app.get("/getPhoto",  getPhoto);
-// app.get("/getAttendeeData",  getAttendeeData);
+app.get("/getAttendeeData",  getAttendeeData);
 // app.put("/verifyAttendee",  verifyAttendee);
 
 app.get("/", (req, res) => {
