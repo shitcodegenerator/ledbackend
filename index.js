@@ -3,7 +3,7 @@ const express = require("express");
 const connectDb = require("./config/dbConnection")
 const uploadRouter = require('./router.js')
 var cors = require("cors");
-const { createMember } = require("./controllers/member.js");
+const { createMember, getPhoto, getAttendeeData, verifyAttendee } = require("./controllers/member.js");
 
 // const multer = require("multer");
 // const { google } = require("googleapis");
@@ -33,6 +33,9 @@ app.use(uploadRouter)
 //   app.use(cors(corsOptions));
 
 app.post("/enroll",  createMember);
+app.get("/getPhoto",  getPhoto);
+app.get("/getAttendeeData",  getAttendeeData);
+app.put("/verifyAttendee",  verifyAttendee);
 
 app.get("/", (req, res) => {
   // res.sendFile(__dirname + '/index.html')

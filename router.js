@@ -94,9 +94,7 @@ const uploadFile = async (fileObject, mobile, fileId) => {
    
   };
 uploadRouter.post("/upload", upload.any(), async (req, res) => {
-  // console.log(req.body)
   try {
-    // console.log(req.files)
     const hasOne = await Member.findOne({ mobile: req.query.mobile });
     
     if (!hasOne) {
@@ -104,14 +102,13 @@ uploadRouter.post("/upload", upload.any(), async (req, res) => {
       return
     }
 
-    // console.log(hasOne)
     const { body, files } = req;
     const targetFile = files[0];
-    console.log('here')
     const data = await uploadFile(targetFile, req.query.mobile, hasOne.photo_id);
 
-    hasOne.photo = data.thumbnailLink
+    hasOne.photo = data.thumbnailLink.replace('220', '500')
     hasOne.photo_id = data.id
+    hasOne.doctor_name = req.query.doctor_name
 
     hasOne.save()
 

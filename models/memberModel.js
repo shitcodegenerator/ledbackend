@@ -33,7 +33,7 @@ const memberSchema = mongoose.model('Member',
     maxlength: 50,
     required: [true, "Please add name"],
   },
-  createdAt: {
+  created_at: {
     type: Date,
     default: Date.now
   },
@@ -44,6 +44,22 @@ const memberSchema = mongoose.model('Member',
   photo_id: {
     type: String,
     default: ''
+  },
+  doctor_name: {
+    type: String,
+    default: ''
+  },
+  is_verified: {
+    type: Boolean,
+    default: false
+  },
+  verified_at: {
+    type: Date,
+    default: ''
+  },
+  phase: {
+    type: Number,
+    default: 0
   },
   // orders: [
   //   {
