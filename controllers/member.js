@@ -85,24 +85,25 @@ const getAttendeeData = asyncHandler(async (req, res) => {
   });
 });
 
-// const verifyAttendee = asyncHandler(async (req, res) => {
-//   const user = await Member.findOne(
-//     {
-//       _id: req.query.id
-//     }
-//   )
-//   if(!user) {
-//     res.status(400).json({ status: false, message: "審核失敗", data: null  });
-//   }
-//   user.is_verified = !user.is_verified
-//   user.verified_at = new Date()
-//   await user.save()
-//   res.status(200).json({ status: true, message: "成功審核", data: user  });
-// });
+const verifyAttendee = asyncHandler(async (req, res) => {
+  const member = await Member.findOne(
+    {
+      _id: req.query.id
+    }
+  )
+  if(!member) {
+    res.status(400).json({ status: false, message: "審核失敗", data: null  });
+    return
+  }
+  member.is_verified = !member.is_verified
+  member.verified_at = new Date()
+  await member.save()
+  res.status(200).json({ status: true, message: "成功審核", data: user  });
+});
 
 module.exports = {
   getPhoto,
   getAttendeeData,
   createMember,
-  // verifyAttendee
+  verifyAttendee
 };
