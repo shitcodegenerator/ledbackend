@@ -27,7 +27,13 @@ const createMember = asyncHandler(async (req, res) => {
   const foundUser = await Member.findOne({ mobile: mobile });
 
   if (foundUser) {
-    res.status(400).json({ message: "此帳號已經註冊過", data: null });
+    res.status(400).json({ message: "此手機號碼已經註冊過", data: null });
+    return;
+  }
+  const foundEmail = await Member.findOne({ email: email });
+
+  if (foundEmail) {
+    res.status(400).json({ message: "此Email已經註冊過", data: null });
     return;
   }
   const member = new Member({
@@ -39,7 +45,7 @@ const createMember = asyncHandler(async (req, res) => {
     receiver_address,
   });
   await member.save();
-  res.status(200).json({ message: "Created", data: member });
+  res.status(200).json({ message: "報名成功", data: member });
 });
 
 const getPhoto = asyncHandler(async (req, res) => {
@@ -98,7 +104,7 @@ const verifyAttendee = asyncHandler(async (req, res) => {
   member.is_verified = !member.is_verified
   member.verified_at = new Date()
   await member.save()
-  res.status(200).json({ status: true, message: "成功審核", data: user  });
+  res.status(200).json({ status: true, message: "成功審核", data: member  });
 });
 
 module.exports = {
