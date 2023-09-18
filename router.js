@@ -62,7 +62,7 @@ const uploadFile = async (fileObject, mobile, fileId) => {
           mimeType: fileObject.mimeType,
           body: bufferStream,
         },
-        fields: "id, name, thumbnailLink",
+        fields: "id, name",
       });
 
     console.log(`SUCCESSFULLY UPDATED PHOTO`);
@@ -84,11 +84,10 @@ const uploadFile = async (fileObject, mobile, fileId) => {
           parents: ["1FoJbzJAPFISLePmWqaw3VIiBsJat1GBl"], //GoogleDrive Folder ID
         },
         name: mobile,
-        fields: "id, name, thumbnailLink",
+        fields: "id, name",
       });
 
     console.log(`SUCCESSFULLY UPLOADED: ${data.name} ${data.id}`);
-    // console.log(data.thumbnailLink);
     return data;
     }
    
@@ -106,8 +105,8 @@ uploadRouter.post("/upload", upload.any(), async (req, res) => {
     const targetFile = files[0];
     const data = await uploadFile(targetFile, req.query.mobile, hasOne.photo_id);
 
-    hasOne.photo = data.thumbnailLink.replace('220', '500')
     hasOne.photo_id = data.id
+    hasOne.photo = `https://lh3.google.com/u/0/d/${data.id}`
     hasOne.doctor_name = req.query.doctor_name
 
     hasOne.save()
