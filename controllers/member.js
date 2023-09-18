@@ -75,7 +75,7 @@ const getAttendeeData = asyncHandler(async (req, res) => {
     {
       ...(receiver_mobile && {receiver_mobile})
     }
-  )
+  ).sort({created_at:'desc'})
     .select(["doctor_name", "photo", 'receiver_mobile', 'receiver_name', 'is_verified', 'created_at', 'receiver_address'])
     .skip((page - 1) * size)
     .limit(size)

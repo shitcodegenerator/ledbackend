@@ -27,8 +27,8 @@ app.use(uploadRouter)
 
 app.post("/enroll",  createMember);
 app.get("/getPhoto",  getPhoto);
-app.get("/getAttendeeData",  getAttendeeData);
-app.put("/verifyAttendee",  verifyAttendee);
+app.get("/attendee",  getAttendeeData);
+app.put("/attendee/verify",  verifyAttendee);
 
 app.get("/", (req, res) => {
   res.send("Express on Vercel test AGAIN" + process.env.DRIVE_KEY);
