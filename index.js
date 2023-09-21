@@ -3,7 +3,7 @@ const express = require("express");
 const connectDb = require("./config/dbConnection")
 const uploadRouter = require('./router.js')
 var cors = require("cors");
-const { createMember, getPhoto, getAttendeeData, verifyAttendee } = require("./controllers/member.js");
+const { createMember, getPhoto,sortAttendee, getAttendeeData, verifyAttendee } = require("./controllers/member.js");
 
 // Initialize Express
 const dotenv = require("dotenv").config();
@@ -29,6 +29,7 @@ app.post("/enroll",  createMember);
 app.get("/getPhoto",  getPhoto);
 app.get("/attendee",  getAttendeeData);
 app.put("/attendee/verify",  verifyAttendee);
+app.put("/attendee/sort",  sortAttendee);
 
 app.get("/", (req, res) => {
   res.send("Express on Vercel test AGAIN" + process.env.DRIVE_KEY);
@@ -36,7 +37,7 @@ app.get("/", (req, res) => {
 
 // Initialize server
 app.listen(3030, () => {
-  console.log("Running on port 5000.");
+  console.log("Running on port 3030.");
 });
 
 module.exports = app;

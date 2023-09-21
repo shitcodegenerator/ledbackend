@@ -54,7 +54,7 @@ const getPhoto = asyncHandler(async (req, res) => {
     {is_verified: true}
   )
     .select(["doctor_name", "photo"])
-    .sort({sort:'ascend'})
+    .sort({sort: -1})
     .skip((page - 1) * size)
     .limit(size)
     .exec();
@@ -107,9 +107,26 @@ const verifyAttendee = asyncHandler(async (req, res) => {
   res.status(200).json({ status: true, message: "成功審核", data: member  });
 });
 
+const sortAttendee = asyncHandler(async (req, res) => {
+  const member = await Member.findOne(
+    {
+      _id: req.query.id
+    }
+  )
+  if(!member) {
+    res.status(400).json({ status: false, message: "修改排序失敗", data: null  });
+    return
+  }
+  member.sort = req.query.sort
+  member.verified_at = new Date()
+  await member.save()
+  res.status(200).json({ status: true, message: "修改排序成功", data: member  });
+});
+
 module.exports = {
   getPhoto,
   getAttendeeData,
   createMember,
-  verifyAttendee
+  verifyAttendee,
+  sortAttendee
 };
