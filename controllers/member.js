@@ -54,6 +54,7 @@ const getPhoto = asyncHandler(async (req, res) => {
     {is_verified: true}
   )
     .select(["doctor_name", "photo"])
+    .sort({sort:'ascend'})
     .skip((page - 1) * size)
     .limit(size)
     .exec();
@@ -70,13 +71,12 @@ const getPhoto = asyncHandler(async (req, res) => {
 
 /** 後台 */
 const getAttendeeData = asyncHandler(async (req, res) => {
-  const { page = 1, size = 10, receiver_mobile = '' } = req.query;
+  const { page = 1, size = 10, mobile = '' } = req.query;
   const data = await Member.find(
     {
-      ...(receiver_mobile && {receiver_mobile})
+      ...(mobile && {mobile})
     }
   ).sort({created_at:'desc'})
-    .select(["doctor_name", "photo", 'receiver_mobile', 'receiver_name', 'is_verified', 'created_at', 'receiver_address'])
     .skip((page - 1) * size)
     .limit(size)
     .exec();

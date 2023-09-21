@@ -62,6 +62,10 @@ const memberSchema = mongoose.model('Member',
     type: Number,
     default: 0
   },
+  sort: {
+    type: Number,
+    default: 9999
+  },
 }))
 
 
