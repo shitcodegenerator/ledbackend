@@ -3,7 +3,7 @@ const express = require("express");
 const connectDb = require("./config/dbConnection")
 const uploadRouter = require('./router.js')
 var cors = require("cors");
-const { createMember, getPhoto,sortAttendee, getAttendeeData, verifyAttendee } = require("./controllers/member.js");
+const { createMember, getPhoto,sortAttendee, getAttendeeData, verifyAttendee, contactAttendee } = require("./controllers/member.js");
 
 // Initialize Express
 const dotenv = require("dotenv").config();
