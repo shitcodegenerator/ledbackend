@@ -107,6 +107,22 @@ const verifyAttendee = asyncHandler(async (req, res) => {
   res.status(200).json({ status: true, message: "成功審核", data: member  });
 });
 
+const contactAttendee = asyncHandler(async (req, res) => {
+  const member = await Member.findOne(
+    {
+      _id: req.query.id
+    }
+  )
+  if(!member) {
+    res.status(400).json({ status: false, message: "操作失敗", data: null  });
+    return
+  }
+  member.isContacted = !member.isContacted
+  member.verified_at = new Date()
+  await member.save()
+  res.status(200).json({ status: true, message: "操作成功", data: member  });
+});
+
 const sortAttendee = asyncHandler(async (req, res) => {
   const member = await Member.findOne(
     {
@@ -128,5 +144,6 @@ module.exports = {
   getAttendeeData,
   createMember,
   verifyAttendee,
-  sortAttendee
+  sortAttendee,
+  contactAttendee
 };

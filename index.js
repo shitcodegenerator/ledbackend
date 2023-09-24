@@ -30,6 +30,7 @@ app.get("/getPhoto",  getPhoto);
 app.get("/attendee",  getAttendeeData);
 app.put("/attendee/verify",  verifyAttendee);
 app.put("/attendee/sort",  sortAttendee);
+app.put("/attendee/contact",  contactAttendee);
 
 app.get("/", (req, res) => {
   res.send("Express on Vercel test AGAIN" + process.env.DRIVE_KEY);

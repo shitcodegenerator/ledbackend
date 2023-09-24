@@ -60,12 +60,16 @@ const memberSchema = mongoose.model('Member',
   },
   phase: {
     type: Number,
-    default: 0
+    default: 1
   },
   sort: {
     type: Number,
     default: 9999
   },
+  isContacted: {
+    type: Boolean,
+    default: false
+  }
 }))
 
 
