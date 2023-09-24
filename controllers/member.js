@@ -133,7 +133,6 @@ const sortAttendee = asyncHandler(async (req, res) => {
     return
   }
   member.sort = req.query.sort
-  member.verified_at = new Date()
   await member.save()
   res.status(200).json({ status: true, message: "修改排序成功", data: member  });
 });
