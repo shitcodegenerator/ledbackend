@@ -54,7 +54,7 @@ const getPhoto = asyncHandler(async (req, res) => {
     {is_verified: true}
   )
     .select(["doctor_name", "photo"])
-    .sort({sort: -1})
+    .sort({sort: 1})
     .skip((page - 1) * size)
     .limit(size)
     .exec();
