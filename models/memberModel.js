@@ -58,6 +58,10 @@ const memberSchema = mongoose.model('Member',
     type: Date,
     default: ''
   },
+  contact_at: {
+    type: Date,
+    default: ''
+  },
   phase: {
     type: Number,
     default: 1

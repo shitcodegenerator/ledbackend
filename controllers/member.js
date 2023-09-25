@@ -118,6 +118,7 @@ const contactAttendee = asyncHandler(async (req, res) => {
     return
   }
   member.isContacted = !member.isContacted
+  member.contact_at = new Date()
   await member.save()
   res.status(200).json({ status: true, message: "操作成功", data: member  });
 });
