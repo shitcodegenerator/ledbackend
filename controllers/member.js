@@ -72,10 +72,11 @@ const getPhoto = asyncHandler(async (req, res) => {
 
 /** 後台 */
 const getAttendeeData = asyncHandler(async (req, res) => {
-  const { page = 1, size = 10, mobile = '' } = req.query;
+  const { page = 1, size = 10, mobile = '', phase = 1 } = req.query;
   const data = await Member.find(
     {
-      ...(mobile && {mobile})
+      ...(mobile && {mobile}),
+      phase
     }
   ).sort({created_at:'desc'})
     .skip((page - 1) * size)
@@ -104,6 +105,7 @@ const verifyAttendee = asyncHandler(async (req, res) => {
   }
   member.is_verified = !member.is_verified
   member.verified_at = new Date()
+  
   if (member.verified_at < new Date('2023-10-30 23:59:59')) {
     member.phase = 1
   } else if (member.verified_at < new Date('2023-11-29 23:59:59') && member.verified_at > new Date('2023-10-30 23:59:59')) {
