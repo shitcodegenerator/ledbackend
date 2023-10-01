@@ -49,9 +49,10 @@ const createMember = asyncHandler(async (req, res) => {
 });
 
 const getPhoto = asyncHandler(async (req, res) => {
-  const { page = 1, size = 1 } = req.query;
+  const { page = 1, size = 1, phase = 1 } = req.query;
   const data = await Member.find(
-    {is_verified: true}
+    {is_verified: true,
+      phase}
   )
     .select(["doctor_name", "photo"])
     .sort({sort: 1})
@@ -103,6 +104,13 @@ const verifyAttendee = asyncHandler(async (req, res) => {
   }
   member.is_verified = !member.is_verified
   member.verified_at = new Date()
+  if (member.verified_at < new Date('2023-10-30 23:59:59')) {
+    member.phase = 1
+  } else if (member.verified_at < new Date('2023-11-29 23:59:59') && member.verified_at > new Date('2023-10-30 23:59:59')) {
+    member.phase = 2
+  } else {
+    member.phase = 3
+  }
   await member.save()
   res.status(200).json({ status: true, message: "成功審核", data: member  });
 });
