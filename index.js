@@ -25,7 +25,7 @@ app.use(uploadRouter)
   
 //   app.use(cors(corsOptions));
 
-// app.post("/enroll",  createMember);
+app.post("/enroll",  createMember);
 app.get("/getPhoto",  getPhoto);
 app.get("/attendee",  getAttendeeData);
 app.put("/attendee/verify",  verifyAttendee);
