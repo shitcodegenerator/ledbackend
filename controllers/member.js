@@ -32,10 +32,10 @@ const createMember = asyncHandler(async (req, res) => {
   }
   const foundEmail = await Member.findOne({ email: email });
 
-  if (foundEmail) {
-    res.status(400).json({ message: "此Email已經註冊過", data: null });
-    return;
-  }
+  // if (foundEmail) {
+  //   res.status(400).json({ message: "此Email已經註冊過", data: null });
+  //   return;
+  // }
   const member = new Member({
     name,
     mobile,
