@@ -106,7 +106,7 @@ uploadRouter.post("/upload", upload.any(), async (req, res) => {
     const data = await uploadFile(targetFile, req.query.mobile, hasOne.photo_id);
 
     hasOne.photo_id = data.id
-    hasOne.photo = `https://drive.google.com/uc?id=${data.id}`
+    hasOne.photo = `https://lh3.googleusercontent.com/u/0/d/${data.id}`
     hasOne.doctor_name = req.query.doctor_name
     hasOne.save()
 
