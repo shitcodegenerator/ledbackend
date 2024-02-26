@@ -37,9 +37,10 @@ const enroll = asyncHandler(async (req, res) => {
 
 const lottery = asyncHandler(async (req, res) => {
   try {
+    const { event = 1, size = 30 } = req.query
     const winners = await LotteryMember.aggregate([
-      { $match: { isWinner: false, event: +req.query.event } },
-      { $sample: { size: 30 } }
+      { $match: { isWinner: false, event: +event } },
+      { $sample: { size: +size } }
     ]);
 
     if (winners.length === 0) {

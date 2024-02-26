@@ -1,7 +1,7 @@
 // Add Express
 const express = require("express");
 const connectDb = require("./config/dbConnection")
-const uploadRouter = require('./router.js')
+// const uploadRouter = require('./router.js')
 var cors = require("cors");
 // const { createMember, getPhoto,sortAttendee, getAttendeeData, verifyAttendee, contactAttendee } = require("./controllers/member.js");
 const { enroll, lottery, reset, getWinners } = require("./controllers/lotteryMember.js");
@@ -13,7 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(uploadRouter)
+// app.use(uploadRouter)
 
 // const corsOptions = {
 //     origin: [
