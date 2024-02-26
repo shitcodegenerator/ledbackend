@@ -3,7 +3,8 @@ const express = require("express");
 const connectDb = require("./config/dbConnection")
 const uploadRouter = require('./router.js')
 var cors = require("cors");
-const { createMember, getPhoto,sortAttendee, getAttendeeData, verifyAttendee, contactAttendee } = require("./controllers/member.js");
+// const { createMember, getPhoto,sortAttendee, getAttendeeData, verifyAttendee, contactAttendee } = require("./controllers/member.js");
+const { enroll, lottery, reset, getWinners } = require("./controllers/lotteryMember.js");
 
 // Initialize Express
 const dotenv = require("dotenv").config();
@@ -25,12 +26,15 @@ app.use(uploadRouter)
   
 //   app.use(cors(corsOptions));
 
-app.post("/enroll",  createMember);
-app.get("/getPhoto",  getPhoto);
-app.get("/attendee",  getAttendeeData);
-app.put("/attendee/verify",  verifyAttendee);
-app.put("/attendee/sort",  sortAttendee);
-app.put("/attendee/contact",  contactAttendee);
+app.post("/enroll",  enroll);
+app.get("/lottery",  lottery);
+app.get("/reset",  reset);
+app.get("/getWinners",  getWinners);
+// app.get("/getPhoto",  getPhoto);
+// app.get("/attendee",  getAttendeeData);
+// app.put("/attendee/verify",  verifyAttendee);
+// app.put("/attendee/sort",  sortAttendee);
+// app.put("/attendee/contact",  contactAttendee);
 
 app.get("/", (req, res) => {
   res.send("Express on Vercel test AGAIN" + process.env.DRIVE_KEY);
