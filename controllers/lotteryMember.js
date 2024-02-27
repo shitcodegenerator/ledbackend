@@ -1,5 +1,32 @@
 const { LotteryMember } = require("../models/lotteryMemberModel");
+const { Num } = require("../models/num");
 const asyncHandler = require("express-async-handler");
+var faker = require("faker");
+faker.setLocale('zh_CN')
+const FakeDataGenerator = require('fake-data-generator-taiwan');
+let generator = new FakeDataGenerator();
+
+// 生成假数据并插入到数据库
+async function generateFakeData() {
+  try {
+    for (let i = 0; i < 50; i++) {
+      let name = ''
+      name += faker.name.firstName() +faker.name.lastName() +"\r\n";; // 随机生成中文名字
+      const event = 1; // 事件编号，这里假设都是 1
+      const userId = generator.IDNumber.generate()
+      console.log(userId)
+      await LotteryMember.create({ name, event, userId });
+    }
+    console.log('Fake data generated successfully.');
+  } catch (error) {
+    console.error('Error generating fake data:', error);
+  } finally {
+    // mongoose.disconnect();
+  }
+}
+
+// 执行生成假数据的函数
+// generateFakeData();
 
 
 const enroll = asyncHandler(async (req, res) => {
@@ -37,10 +64,11 @@ const enroll = asyncHandler(async (req, res) => {
 
 const lottery = asyncHandler(async (req, res) => {
   try {
-    const { event = 1, size = 30 } = req.query
+    const { event = 1 } = req.query
+    const num = await Num.findOne({ _id: '65ddb64d492e821995a3c319' });
     const winners = await LotteryMember.aggregate([
       { $match: { isWinner: false, event: +event } },
-      { $sample: { size: +size } }
+      { $sample: { size: num.num } }
     ]);
 
     if (winners.length === 0) {
@@ -83,9 +111,35 @@ const getWinners = asyncHandler(async (req, res) => {
   }
 });
 
+const getNum = asyncHandler(async (req, res) => {
+  try {
+    const num = await Num.findOne({ _id: '65ddb64d492e821995a3c319' });
+    console.log(num)
+    res.status(200).json({ message: '成功', num: num.num });
+  } catch (error) {
+    console.error('Error during lottery:', error);
+    res.status(500).json({ message: '抽獎失敗', error: 'An error occurred during the lottery.' });
+  }
+});
+
+const setNum = asyncHandler(async (req, res) => {
+  try {
+    const num = await Num.findOne({ _id: '65ddb64d492e821995a3c319' });
+    num.num = req.body.num
+    await num.save();
+    res.status(200).json({ message: '成功' });
+  } catch (error) {
+    console.error('Error during lottery:', error);
+    res.status(500).json({ message: '抽獎失敗', error: 'An error occurred during the lottery.' });
+  }
+});
+
 module.exports = {
   enroll,
   lottery,
   reset,
-  getWinners
+  getWinners,
+  generateFakeData,
+  getNum,
+  setNum
 };

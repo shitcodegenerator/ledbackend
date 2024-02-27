@@ -4,7 +4,7 @@ const connectDb = require("./config/dbConnection")
 // const uploadRouter = require('./router.js')
 var cors = require("cors");
 // const { createMember, getPhoto,sortAttendee, getAttendeeData, verifyAttendee, contactAttendee } = require("./controllers/member.js");
-const { enroll, lottery, reset, getWinners } = require("./controllers/lotteryMember.js");
+const { enroll, lottery, reset, getWinners, getNum, setNum } = require("./controllers/lotteryMember.js");
 
 // Initialize Express
 const dotenv = require("dotenv").config();
@@ -30,6 +30,8 @@ app.post("/enroll",  enroll);
 app.get("/lottery",  lottery);
 app.get("/reset",  reset);
 app.get("/getWinners",  getWinners);
+app.get("/getNum",  getNum);
+app.post("/setNum",  setNum);
 // app.get("/getPhoto",  getPhoto);
 // app.get("/attendee",  getAttendeeData);
 // app.put("/attendee/verify",  verifyAttendee);
@@ -43,6 +45,7 @@ app.get("/", (req, res) => {
 // Initialize server
 app.listen(3030, () => {
   console.log("Running on port 3030.");
+  // generateFakeData()
 });
 
 module.exports = app;
