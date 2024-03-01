@@ -4,7 +4,7 @@ const connectDb = require("./config/dbConnection")
 // const uploadRouter = require('./router.js')
 var cors = require("cors");
 // const { createMember, getPhoto,sortAttendee, getAttendeeData, verifyAttendee, contactAttendee } = require("./controllers/member.js");
-const { enroll, lottery, reset, getWinners, getNum, setNum } = require("./controllers/lotteryMember.js");
+const { enroll, lottery, reset, getWinners, getNum, setNum, generateFakeData } = require("./controllers/lotteryMember.js");
 
 // Initialize Express
 const dotenv = require("dotenv").config();

@@ -7,6 +7,12 @@ const memberSchema = mongoose.model('LotteryMember',
     maxlength: 20,
     required: [true, "請輸入真實姓名"]
   },
+  mobile: {
+    type: String,
+    maxlength: 20,
+    required: [true, "請輸入手機號碼"],
+    default: ''
+  },
   userId: {
     type: String,
     required: [true, "請輸入身分證字號"],

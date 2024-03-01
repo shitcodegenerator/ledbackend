@@ -11,11 +11,11 @@ async function generateFakeData() {
   try {
     for (let i = 0; i < 50; i++) {
       let name = ''
-      name += faker.name.firstName() +faker.name.lastName() +"\r\n";; // 随机生成中文名字
+      name += faker.name.firstName() +faker.name.lastName(); // 随机生成中文名字
       const event = 1; // 事件编号，这里假设都是 1
       const userId = generator.IDNumber.generate()
       console.log(userId)
-      await LotteryMember.create({ name, event, userId });
+      await LotteryMember.create({ name, event, userId, mobile: '0912345678' });
     }
     console.log('Fake data generated successfully.');
   } catch (error) {
@@ -33,13 +33,15 @@ const enroll = asyncHandler(async (req, res) => {
   const {
     userId,
     name,
-    event
+    event,
+    mobile
   } = req.body;
   if (
     [
       userId,
       name,
-      event
+      event,
+      mobile
       ].some((i) => !i)
   ) {
     res.status(400).json({ message: "請填寫所有欄位", data: null });
@@ -55,7 +57,8 @@ const enroll = asyncHandler(async (req, res) => {
   const member = new LotteryMember({
     userId,
     name,
-    event
+    event,
+    mobile
   });
   await member.save();
   res.status(200).json({ message: "報名成功", data: member });
