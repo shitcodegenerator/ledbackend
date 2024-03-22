@@ -73,7 +73,7 @@ const lottery = asyncHandler(async (req, res) => {
     const winners = await LotteryMember.aggregate([
       { $match: { isWinner: false, event: +event } },
       { $sample: { size: num.num } }
-    ]);
+    ]).sort({updated_at: 1});
 
     if (winners.length === 0) {
       return res.status(404).json({ message: '所有得獎者已全部中獎'});
@@ -82,9 +82,8 @@ const lottery = asyncHandler(async (req, res) => {
     // Update the isWinner field for the winners
     await LotteryMember.updateMany({ _id: { $in: winners.map(user => user._id) } }, { isWinner: true, updated_at: new Date() });
 
-    const sorted = await LotteryMember.find().sort({updated_at: 1})
 
-    res.status(200).json({ message: '成功', winners:sorted });
+    res.status(200).json({ message: '成功', winners });
   } catch (error) {
     console.error('Error during lottery:', error);
     res.status(500).json({ message: '抽獎失敗', error: 'An error occurred during the lottery.' });
