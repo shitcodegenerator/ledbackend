@@ -82,7 +82,9 @@ const lottery = asyncHandler(async (req, res) => {
     // Update the isWinner field for the winners
     await LotteryMember.updateMany({ _id: { $in: winners.map(user => user._id) } }, { isWinner: true, updated_at: new Date() });
 
-    res.status(200).json({ message: '成功', winners });
+    const sorted = await LotteryMember.find().sort({updated_at: 1})
+
+    res.status(200).json({ message: '成功', winners:sorted });
   } catch (error) {
     console.error('Error during lottery:', error);
     res.status(500).json({ message: '抽獎失敗', error: 'An error occurred during the lottery.' });
