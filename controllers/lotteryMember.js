@@ -1,5 +1,6 @@
 const { LotteryMember } = require("../models/lotteryMemberModel");
 const { Num } = require("../models/num");
+const { Time } = require("../models/time");
 const asyncHandler = require("express-async-handler");
 var faker = require("faker");
 faker.setLocale('zh_CN')
@@ -9,10 +10,10 @@ let generator = new FakeDataGenerator();
 // 生成假数据并插入到数据库
 async function generateFakeData() {
   try {
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 120; i++) {
       let name = ''
       name += faker.name.firstName() +faker.name.lastName(); // 随机生成中文名字
-      const event = 1; // 事件编号，这里假设都是 1
+      const event = 3; // 事件编号，这里假设都是 1
       const userId = generator.IDNumber.generate()
       console.log(userId)
       await LotteryMember.create({ name, event, userId, mobile: '0912345678' });
@@ -79,7 +80,7 @@ const lottery = asyncHandler(async (req, res) => {
     }
 
     // Update the isWinner field for the winners
-    await LotteryMember.updateMany({ _id: { $in: winners.map(user => user._id) } }, { isWinner: true });
+    await LotteryMember.updateMany({ _id: { $in: winners.map(user => user._id) } }, { isWinner: true, updated_at: new Date() });
 
     res.status(200).json({ message: '成功', winners });
   } catch (error) {
@@ -114,6 +115,16 @@ const getWinners = asyncHandler(async (req, res) => {
   }
 });
 
+const getTime = asyncHandler(async (req, res) => {
+  try {
+    const time = await Time.findOne({time: '16:00'});
+    console.log(time)
+    res.status(200).json({ message: '成功', time: time.time });
+  } catch (error) {
+    console.error('Error during lottery:', error);
+    res.status(500).json({ message: '抽獎失敗', error: 'An error occurred during the lottery.' });
+  }
+});
 const getNum = asyncHandler(async (req, res) => {
   try {
     const num = await Num.findOne({ _id: '65ddb64d492e821995a3c319' });
@@ -137,6 +148,18 @@ const setNum = asyncHandler(async (req, res) => {
   }
 });
 
+const setTime = asyncHandler(async (req, res) => {
+  try {
+    const time = await Time.findOne({ _id: '65fcf1b456bd0b4f92a9dad1' });
+    time.time = req.body.time
+    await time.save()
+    res.status(200).json({ message: '成功' });
+  } catch (error) {
+    console.error('Error during lottery:', error);
+    res.status(500).json({ message: '抽獎失敗', error: 'An error occurred during the lottery.' });
+  }
+});
+
 module.exports = {
   enroll,
   lottery,
@@ -144,5 +167,7 @@ module.exports = {
   getWinners,
   generateFakeData,
   getNum,
-  setNum
+  setNum,
+  setTime,
+  getTime
 };

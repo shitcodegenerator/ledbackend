@@ -27,6 +27,7 @@ const memberSchema = mongoose.model('LotteryMember',
     type: Boolean,
     default: false
   },
+  updated_at: { type: Date, required: false, default: new Date() },
 }))
 
 
