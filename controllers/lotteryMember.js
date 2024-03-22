@@ -117,7 +117,7 @@ const getWinners = asyncHandler(async (req, res) => {
 
 const getTime = asyncHandler(async (req, res) => {
   try {
-    const time = await Time.findOne({time: '16:00'});
+    const time = await Time.findOne();
     console.log(time)
     res.status(200).json({ message: '成功', time: time.time });
   } catch (error) {

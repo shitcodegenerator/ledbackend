@@ -33,7 +33,7 @@ app.get("/getWinners",  getWinners);
 app.get("/getNum",  getNum);
 app.post("/setNum",  setNum);
 app.post("/setTime",  setTime);
-app.post("/getTime",  getTime);
+app.get("/getTime",  getTime);
 // app.get("/getPhoto",  getPhoto);
 // app.get("/attendee",  getAttendeeData);
 // app.put("/attendee/verify",  verifyAttendee);
