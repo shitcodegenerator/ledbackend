@@ -80,10 +80,20 @@ const lottery = asyncHandler(async (req, res) => {
     }
 
     // Update the isWinner field for the winners
-    await LotteryMember.updateMany({ _id: { $in: winners.map(user => user._id) } }, { isWinner: true, updated_at: new Date() });
+    // await LotteryMember.updateMany({ _id: { $in: winners.map(user => user._id) } }, { isWinner: true, updated_at: new Date() });
+
+     // Update each winner with a new updated_at value, incrementing by 1 second for each
+     for (let i = 0; i < winners.length; i++) {
+      const newUpdatedAt = new Date();
+      newUpdatedAt.setSeconds(newUpdatedAt.getSeconds() + i); // Increment updated_at by 1 second for each winner
+      await LotteryMember.updateOne({ _id: winners[i]._id }, { isWinner: true, updated_at: newUpdatedAt });
+      winners[i].updated_at = newUpdatedAt; // Update the local copy for the response
+    }
+
+    const sorted = winners.sort((a, b) => a.updated_at - b.updated_at);
 
 
-    res.status(200).json({ message: '成功', winners });
+    res.status(200).json({ message: '成功', winners:sorted });
   } catch (error) {
     console.error('Error during lottery:', error);
     res.status(500).json({ message: '抽獎失敗', error: 'An error occurred during the lottery.' });
