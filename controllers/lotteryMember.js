@@ -1,7 +1,8 @@
 const { LotteryMember } = require("../models/lotteryMemberModel");
 const { Num } = require("../models/num");
-const { Time } = require("../models/time");
+const { Time } = require("../models/times");
 const asyncHandler = require("express-async-handler");
+
 var faker = require("faker");
 faker.setLocale('zh_CN')
 const FakeDataGenerator = require('fake-data-generator-taiwan');
@@ -129,11 +130,12 @@ const getWinners = asyncHandler(async (req, res) => {
 const getTime = asyncHandler(async (req, res) => {
   try {
     const time = await Time.findOne();
+    console
     console.log(time)
     res.status(200).json({ message: '成功', time: time.time });
   } catch (error) {
     console.error('Error during lottery:', error);
-    res.status(500).json({ message: '抽獎失敗', error: 'An error occurred during the lottery.' });
+    // res.status(500).json({ message: '抽獎失敗', error: 'An error occurred during the lottery.' });
   }
 });
 const getNum = asyncHandler(async (req, res) => {
@@ -171,12 +173,25 @@ const setTime = asyncHandler(async (req, res) => {
   }
 });
 
+
+// 清除 LotteryMember 裏所有資料
+const clearLotteryMembers = asyncHandler(async (req, res) => {
+  try {
+    await LotteryMember.deleteMany({}); // 清空所有資料
+    res.status(200).json({ message: "成功清除所有會員資料" });
+  } catch (error) {
+    console.error("Error clearing lottery members:", error);
+    res.status(500).json({ message: "清除失敗", error: "An error occurred while clearing lottery members." });
+  }
+});
+
 module.exports = {
   enroll,
   lottery,
   reset,
   getWinners,
   generateFakeData,
+  clearLotteryMembers,
   getNum,
   setNum,
   setTime,
