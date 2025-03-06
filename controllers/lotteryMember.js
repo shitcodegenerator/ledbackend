@@ -9,12 +9,11 @@ const FakeDataGenerator = require('fake-data-generator-taiwan');
 let generator = new FakeDataGenerator();
 
 // 生成假数据并插入到数据库
-async function generateFakeData() {
+async function generateFakeData(event) {
   try {
-    for (let i = 0; i < 150; i++) {
+    for (let i = 0; i < 800; i++) {
       let name = ''
       name += faker.name.firstName() +faker.name.lastName(); // 随机生成中文名字
-      const event = 2; // 事件编号，这里假设都是 1
       const userId = generator.IDNumber.generate()
       console.log(userId)
       await LotteryMember.create({ name, event, userId, mobile: '0912345678' });
@@ -29,6 +28,24 @@ async function generateFakeData() {
 
 // 执行生成假数据的函数
 // generateFakeData();
+
+const fake = asyncHandler(async (req, res) => {
+  generateFakeData(+req.query.event)
+
+  if (foundUser) {
+    res.status(200).json({ message: "成功產出假資料", data: null });
+    return;
+  }
+
+  const member = new LotteryMember({
+    userId,
+    name,
+    event,
+    mobile
+  });
+  await member.save();
+  res.status(200).json({ message: "產出假資料失敗", data: member });
+});
 
 
 const enroll = asyncHandler(async (req, res) => {
@@ -195,5 +212,6 @@ module.exports = {
   getNum,
   setNum,
   setTime,
-  getTime
+  getTime,
+  fake
 };
