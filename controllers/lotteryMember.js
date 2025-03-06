@@ -14,7 +14,8 @@ async function generateFakeData(event) {
     const fakeMembers = [];
     
     for (let i = 0; i < 300; i++) {
-      let name = faker.name.fullName(); // Generate full name
+      let name = ''
+      name += faker.name.firstName() +faker.name.lastName(); // 随机生成中文名字
       const userId = generator.IDNumber.generate();
 
       fakeMembers.push({
