@@ -11,37 +11,37 @@ let generator = new FakeDataGenerator();
 // 生成假数据并插入到数据库
 async function generateFakeData(event) {
   try {
+    const fakeMembers = [];
+    
     for (let i = 0; i < 300; i++) {
-      let name = ''
-      name += faker.name.firstName() +faker.name.lastName(); // 随机生成中文名字
-      const userId = generator.IDNumber.generate()
-      console.log(userId)
-      await LotteryMember.create({ name, event, userId, mobile: '0912345678' });
+      let name = faker.name.fullName(); // Generate full name
+      const userId = generator.IDNumber.generate();
+
+      fakeMembers.push({
+        name,
+        event,
+        userId,
+        mobile: "0912345678",
+      });
     }
-    console.log('Fake data generated successfully.');
+
+    // Insert all data at once to improve performance
+    await LotteryMember.insertMany(fakeMembers);
+    
+    console.log("✅ 300 Fake data generated successfully.");
   } catch (error) {
-    console.error('Error generating fake data:', error);
-  } finally {
-    // mongoose.disconnect();
+    console.error("❌ Error generating fake data:", error);
   }
 }
 
-// 执行生成假数据的函数
-// generateFakeData();
-
+// API route handler
 const fake = asyncHandler(async (req, res) => {
-  generateFakeData(+req.query.event)
-
-    res.status(200).json({ message: "成功產出假資料", data: null });
-
-  const member = new LotteryMember({
-    userId,
-    name,
-    event,
-    mobile
-  });
-  await member.save();
-  res.status(200).json({ message: "產出假資料失敗", data: member });
+  try {
+    await generateFakeData(+req.query.event); // Wait for fake data to be created
+    res.status(200).json({ message: "✅ 成功產出假資料", data: null });
+  } catch (error) {
+    res.status(500).json({ message: "❌ 產出假資料失敗", error: error.message });
+  }
 });
 
 
