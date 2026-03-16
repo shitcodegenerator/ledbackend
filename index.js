@@ -57,7 +57,7 @@ app.post("/import", bulkImport);
 // app.put("/attendee/contact",  contactAttendee);
 
 app.get("/", (req, res) => {
-  res.send("Express on Vercel test AGAIN" + process.env.DRIVE_KEY);
+  res.json({ status: "ok" });
 });
 
 // Initialize server
