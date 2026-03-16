@@ -1,17 +1,30 @@
 // Add Express
 const express = require("express");
-const connectDb = require("./config/dbConnection")
+const connectDb = require("./config/dbConnection");
 // const uploadRouter = require('./router.js')
 var cors = require("cors");
 // const { createMember, getPhoto,sortAttendee, getAttendeeData, verifyAttendee, contactAttendee } = require("./controllers/member.js");
-const { enroll, lottery, setTime, reset, getWinners, clearLotteryMembers, fake, getNum, getTime, setNum, generateFakeData } = require("./controllers/lotteryMember.js");
+const {
+  enroll,
+  lottery,
+  setTime,
+  reset,
+  getWinners,
+  clearLotteryMembers,
+  fake,
+  getNum,
+  getTime,
+  setNum,
+  generateFakeData,
+  bulkImport,
+} = require("./controllers/lotteryMember.js");
 
 // Initialize Express
 const dotenv = require("dotenv").config();
-connectDb()
+connectDb();
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: false }));
 // app.use(uploadRouter)
 
@@ -23,19 +36,20 @@ app.use(express.urlencoded({ extended: false }));
 //     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
 //     allowedHeaders: ['Content-Type', 'Authorization'],
 //   };
-  
+
 //   app.use(cors(corsOptions));
 
-app.post("/enroll",  enroll);
-app.get("/lottery",  lottery);
-app.get("/reset",  reset);
-app.get("/getWinners",  getWinners);
-app.get("/clear",  clearLotteryMembers);
-app.get("/fake",  fake);
-app.get("/getNum",  getNum);
-app.post("/setNum",  setNum);
-app.post("/setTime",  setTime);
-app.get("/getTime",  getTime);
+app.post("/enroll", enroll);
+app.get("/lottery", lottery);
+app.get("/reset", reset);
+app.get("/getWinners", getWinners);
+app.get("/clear", clearLotteryMembers);
+app.get("/fake", fake);
+app.get("/getNum", getNum);
+app.post("/setNum", setNum);
+app.post("/setTime", setTime);
+app.get("/getTime", getTime);
+app.post("/import", bulkImport);
 // app.get("/getPhoto",  getPhoto);
 // app.get("/attendee",  getAttendeeData);
 // app.put("/attendee/verify",  verifyAttendee);
