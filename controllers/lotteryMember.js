@@ -9,26 +9,37 @@ const FakeDataGenerator = require("fake-data-generator-taiwan");
 let generator = new FakeDataGenerator();
 
 // 生成假数据并插入到数据库
-async function generateFakeData(event) {
+async function generateFakeData(event, type) {
   try {
     const fakeMembers = [];
 
-    for (let i = 0; i < 300; i++) {
-      let name = "";
-      name += faker.name.firstName() + faker.name.lastName(); // 随机生成中文名字
-      const userId = generator.IDNumber.generate();
-
-      fakeMembers.push({
-        name,
-        event,
-        userId,
-        mobile: "0912345678",
-      });
+    if (type === "biolive") {
+      // biolive：只產生代號
+      for (let i = 0; i < 300; i++) {
+        const code = `FAKE_${String(i + 1).padStart(3, "0")}`;
+        fakeMembers.push({
+          name: code,
+          event,
+          userId: code,
+          mobile: "",
+        });
+      }
+    } else {
+      // propartner：產生姓名 + 身分證
+      for (let i = 0; i < 300; i++) {
+        let name = "";
+        name += faker.name.firstName() + faker.name.lastName();
+        const userId = generator.IDNumber.generate();
+        fakeMembers.push({
+          name,
+          event,
+          userId,
+          mobile: "0912345678",
+        });
+      }
     }
 
-    // Insert all data at once to improve performance
     await LotteryMember.insertMany(fakeMembers);
-
     console.log("✅ 300 Fake data generated successfully.");
   } catch (error) {
     console.error("❌ Error generating fake data:", error);
@@ -38,7 +49,7 @@ async function generateFakeData(event) {
 // API route handler
 const fake = asyncHandler(async (req, res) => {
   try {
-    await generateFakeData(+req.query.event); // Wait for fake data to be created
+    await generateFakeData(+req.query.event, req.query.type); // Wait for fake data to be created
     res.status(200).json({ message: "✅ 成功產出假資料", data: null });
   } catch (error) {
     res
