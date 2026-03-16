@@ -216,7 +216,21 @@ const bulkImport = asyncHandler(async (req, res) => {
   const errors = [];
 
   for (let i = 0; i < members.length; i++) {
-    const { name, mobile, userId } = members[i];
+    const { name, mobile, userId, code } = members[i];
+
+    // biolive 格式：只有 code 欄位
+    if (code) {
+      validMembers.push({
+        name: code.trim(),
+        mobile: "",
+        userId: code.trim(),
+        event: +event,
+        isWinner: false,
+      });
+      continue;
+    }
+
+    // propartner 格式：姓名 + 身分證字號
     if (!name || !userId) {
       errors.push(`第 ${i + 1} 筆資料缺少必要欄位（姓名或身分證字號）`);
       continue;
