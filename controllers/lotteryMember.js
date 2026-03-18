@@ -84,7 +84,7 @@ const enroll = asyncHandler(async (req, res) => {
 const lottery = asyncHandler(async (req, res) => {
   try {
     const { event = 1 } = req.query;
-    const num = await Num.findOne({ _id: "65ddb64d492e821995a3c319" });
+    const num = await Num.findOne({ _id: process.env.CLIENT ? '69b814fe29760f8351c61949' : "65ddb64d492e821995a3c319"  });
     const winners = await LotteryMember.aggregate([
       { $match: { isWinner: false, event: +event } },
       { $sample: { size: num.num } },
@@ -94,8 +94,7 @@ const lottery = asyncHandler(async (req, res) => {
       return res.status(404).json({ message: "所有得獎者已全部中獎" });
     }
 
-    // Update the isWinner field for the winners
-    // await LotteryMember.updateMany({ _id: { $in: winners.map(user => user._id) } }, { isWinner: true, updated_at: new Date() });
+
 
     // Update each winner with a new updated_at value, incrementing by 1 second for each
     for (let i = 0; i < winners.length; i++) {
@@ -198,7 +197,7 @@ const setNum = asyncHandler(async (req, res) => {
 
 const setTime = asyncHandler(async (req, res) => {
   try {
-    const time = await Time.findOne({ _id: "65fcf1b456bd0b4f92a9dad1" });
+    const time = await Time.findOne({ _id:  process.env.CLIENT ? '69ba5eee3d71a5bbf1c9e218' : "65fcf1b456bd0b4f92a9dad1" });
     time.time = req.body.time;
     await time.save();
     res.status(200).json({ message: "成功" });
