@@ -169,7 +169,7 @@ const getTime = asyncHandler(async (req, res) => {
 });
 const getNum = asyncHandler(async (req, res) => {
   try {
-    const num = await Num.findOne({ _id: "65ddb64d492e821995a3c319" });
+    const num = await Num.findOne({ _id: process.env.CLIENT ? '69b814fe29760f8351c61949' : "65ddb64d492e821995a3c319"  });
     console.log(num);
     res.status(200).json({ message: "成功", num: num.num });
   } catch (error) {
@@ -183,7 +183,7 @@ const getNum = asyncHandler(async (req, res) => {
 
 const setNum = asyncHandler(async (req, res) => {
   try {
-    const num = await Num.findOne({ _id: "65ddb64d492e821995a3c319" });
+    const num = await Num.findOne({ _id: process.env.CLIENT ? '69b814fe29760f8351c61949' : "65ddb64d492e821995a3c319" });
     num.num = req.body.num;
     await num.save();
     res.status(200).json({ message: "成功" });
