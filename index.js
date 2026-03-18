@@ -9,6 +9,7 @@ const {
   lottery,
   setTime,
   reset,
+  getMembers,
   getWinners,
   clearLotteryMembers,
   fake,
@@ -42,6 +43,7 @@ app.use(express.urlencoded({ extended: false }));
 app.post("/enroll", enroll);
 app.get("/lottery", lottery);
 app.get("/reset", reset);
+app.get("/getMembers", getMembers);
 app.get("/getWinners", getWinners);
 app.get("/clear", clearLotteryMembers);
 app.get("/fake", fake);

@@ -84,7 +84,11 @@ const enroll = asyncHandler(async (req, res) => {
 const lottery = asyncHandler(async (req, res) => {
   try {
     const { event = 1 } = req.query;
-    const num = await Num.findOne({ _id: process.env.CLIENT ? '69b814fe29760f8351c61949' : "65ddb64d492e821995a3c319"  });
+    const num = await Num.findOne({
+      _id: process.env.CLIENT
+        ? "69b814fe29760f8351c61949"
+        : "65ddb64d492e821995a3c319",
+    });
     const winners = await LotteryMember.aggregate([
       { $match: { isWinner: false, event: +event } },
       { $sample: { size: num.num } },
@@ -93,8 +97,6 @@ const lottery = asyncHandler(async (req, res) => {
     if (winners.length === 0) {
       return res.status(404).json({ message: "所有得獎者已全部中獎" });
     }
-
-
 
     // Update each winner with a new updated_at value, incrementing by 1 second for each
     for (let i = 0; i < winners.length; i++) {
@@ -139,6 +141,21 @@ const reset = asyncHandler(async (req, res) => {
   }
 });
 
+const getMembers = asyncHandler(async (req, res) => {
+  try {
+    const members = await LotteryMember.find({
+      event: +req.query.event,
+    }).sort({ updated_at: 1 });
+    res.status(200).json({ message: "成功", members });
+  } catch (error) {
+    console.error("Error fetching members:", error);
+    res.status(500).json({
+      message: "查詢失敗",
+      error: "An error occurred while fetching members.",
+    });
+  }
+});
+
 const getWinners = asyncHandler(async (req, res) => {
   try {
     const winners = await LotteryMember.find({
@@ -168,7 +185,11 @@ const getTime = asyncHandler(async (req, res) => {
 });
 const getNum = asyncHandler(async (req, res) => {
   try {
-    const num = await Num.findOne({ _id: process.env.CLIENT ? '69b814fe29760f8351c61949' : "65ddb64d492e821995a3c319"  });
+    const num = await Num.findOne({
+      _id: process.env.CLIENT
+        ? "69b814fe29760f8351c61949"
+        : "65ddb64d492e821995a3c319",
+    });
     console.log(num);
     res.status(200).json({ message: "成功", num: num.num });
   } catch (error) {
@@ -182,7 +203,11 @@ const getNum = asyncHandler(async (req, res) => {
 
 const setNum = asyncHandler(async (req, res) => {
   try {
-    const num = await Num.findOne({ _id: process.env.CLIENT ? '69b814fe29760f8351c61949' : "65ddb64d492e821995a3c319" });
+    const num = await Num.findOne({
+      _id: process.env.CLIENT
+        ? "69b814fe29760f8351c61949"
+        : "65ddb64d492e821995a3c319",
+    });
     num.num = req.body.num;
     await num.save();
     res.status(200).json({ message: "成功" });
@@ -197,7 +222,11 @@ const setNum = asyncHandler(async (req, res) => {
 
 const setTime = asyncHandler(async (req, res) => {
   try {
-    const time = await Time.findOne({ _id:  process.env.CLIENT ? '69ba5eee3d71a5bbf1c9e218' : "65fcf1b456bd0b4f92a9dad1" });
+    const time = await Time.findOne({
+      _id: process.env.CLIENT
+        ? "69ba5eee3d71a5bbf1c9e218"
+        : "65fcf1b456bd0b4f92a9dad1",
+    });
     time.time = req.body.time;
     await time.save();
     res.status(200).json({ message: "成功" });
@@ -300,6 +329,7 @@ module.exports = {
   enroll,
   lottery,
   reset,
+  getMembers,
   getWinners,
   generateFakeData,
   clearLotteryMembers,
